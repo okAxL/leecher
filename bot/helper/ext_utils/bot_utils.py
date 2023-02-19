@@ -52,19 +52,19 @@ class MirrorStatus:
         STATUS_SPLITTING = "Split"
         STATUS_CHECKING = "CheckUp"
         STATUS_SEEDING = "Seed"
-        STATUS_CONVERTING = "↔️ Convert"
+        STATUS_CONVERTING = "Convert"
 
 class EngineStatus:
-    STATUS_ARIA = "Aria2c📶"
-    STATUS_GD = "Google Api♻️"
-    STATUS_MEGA = "MegaSDK⭕️"
-    STATUS_QB = "qBittorrent🦠"
-    STATUS_TG = "Pyrogram💥"
-    STATUS_YT = "YT-dlp🌟"
-    STATUS_EXT = "Extract | pExtract⚔️"
-    STATUS_SPLIT_MERGE = "FFmpeg🍿"
-    STATUS_ZIP = "p7zip🛠"
-    STATUS_QUEUE = "Sleep💤"
+    STATUS_ARIA = "Aria2c"
+    STATUS_GD = "Google Api"
+    STATUS_MEGA = "MegaSDK"
+    STATUS_QB = "qBittorrent"
+    STATUS_TG = "Pyrogram"
+    STATUS_YT = "YT-dlp"
+    STATUS_EXT = "Extract | pExtract"
+    STATUS_SPLIT_MERGE = "FFmpeg"
+    STATUS_ZIP = "p7zip"
+    STATUS_QUEUE = "Sleep"
 
     
 SIZE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
@@ -257,12 +257,12 @@ def get_readable_message():
                     msg += f"\n<b>├⛓️ Engine :</b> {download.eng()}"
 
                 else:
-                    msg += f"\n<b>├ </b>{get_progress_bar_string(download)} {download.progress()}"
-                    msg += f"\n<b>├ Process:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
-                    msg += f"\n<b>├ Speed:</b> {download.speed()}"
-                    msg += f"\n<b>├ ETA:</b> {download.eta()}"
+                    msg += f"\n<b></b>{get_progress_bar_string(download)} {download.progress()}"
+                    msg += f"\n<b>Processed:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
+                    msg += f"\n<b>Speed:</b> {download.speed()}"
+                    msg += f"\n<b>ETA:</b> {download.eta()}"
                     msg += f"<b> | Elapsed: </b>{get_readable_time(time() - download.message.date.timestamp())}"
-                    msg += f"\n<b>├ Engine :</b> {download.eng()}"
+                    msg += f"\n<b>Engine :</b> {download.eng()}"
 
                 if hasattr(download, 'seeders_num'):
                     try:
@@ -270,8 +270,8 @@ def get_readable_message():
                             msg += f"\n<b>├🌱 Seeders:</b> {download.seeders_num()} | <b>🐌 Leechers:</b> {download.leechers_num()}"
                             msg += f"\n<b>├🧿 Select:</b> <code>/{BotCommands.BtSelectCommand} {download.gid()}</code>"
                         else:
-                            msg += f"\n<b>├ Seeders:</b> {download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
-                            msg += f"\n<b>├ Select:</b> <code>/{BotCommands.BtSelectCommand} {download.gid()}</code>"
+                            msg += f"\n<b>Seeders:</b> {download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
+                            msg += f"\n<b>Select:</b> <code>/{BotCommands.BtSelectCommand} {download.gid()}</code>"
                     except:
                         pass
                 if download.message.chat.type != 'private':
@@ -281,8 +281,8 @@ def get_readable_message():
                             msg += f'\n<b>├🌐 Source: </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a> | <b>Id :</b> <code>{download.message.from_user.id}</code>'
                             msg += f"\n<b>╰❌ </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
                         else:
-                            msg += f'\n<b>├ Source: </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a> | <b>Id :</b> <code>{download.message.from_user.id}</code>'
-                            msg += f"\n<b>╰ Cancel: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"                 
+                            msg += f'\n<b>Source: </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a> | <b>Id :</b> <code>{download.message.from_user.id}</code>'
+                            msg += f"\n<b>Cancel: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"                 
                     except:
                         pass
                 else:
@@ -290,8 +290,8 @@ def get_readable_message():
                         msg += f'\n<b>├👤 User:</b> ️<code>{download.message.from_user.first_name}</code> | <b>Id:</b> <code>{download.message.from_user.id}</code>'
                         msg += f"\n<b>╰❌ </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
                     else:
-                        msg += f'\n<b>├ User:</b> ️<code>{download.message.from_user.first_name}</code> | <b>Id:</b> <code>{download.message.from_user.id}</code>'
-                        msg += f"\n<b>╰ Cancel: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                        msg += f'\n<b>User:</b> ️<code>{download.message.from_user.first_name}</code> | <b>Id:</b> <code>{download.message.from_user.id}</code>'
+                        msg += f"\n<b>Cancel: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
 
             elif download.status() == MirrorStatus.STATUS_SEEDING:
                 if config_dict['EMOJI_THEME']:
@@ -304,21 +304,21 @@ def get_readable_message():
                     msg += f"\n<b>├⏳ Elapsed: </b>{get_readable_time(time() - download.message.date.timestamp())}"
                     msg += f"\n<b>╰❌ </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
                 else:
-                    msg += f"\n<b>├ Size: </b>{download.size()}"
-                    msg += f"\n<b>├ Engine:</b> <code>qBittorrent v4.4.2</code>"
-                    msg += f"\n<b>├ Speed: </b>{download.upload_speed()}"
-                    msg += f"\n<b>├ Uploaded: </b>{download.uploaded_bytes()}"
-                    msg += f"\n<b>├ Ratio: </b>{download.ratio()}"
+                    msg += f"\n<b>Size: </b>{download.size()}"
+                    msg += f"\n<b>Engine:</b> <code>qBittorrent v4.4.2</code>"
+                    msg += f"\n<b>Speed: </b>{download.upload_speed()}"
+                    msg += f"\n<b>Uploaded: </b>{download.uploaded_bytes()}"
+                    msg += f"\n<b>Ratio: </b>{download.ratio()}"
                     msg += f" | <b> Time: </b>{download.seeding_time()}"
-                    msg += f"\n<b>├ Elapsed: </b>{get_readable_time(time() - download.message.date.timestamp())}"
-                    msg += f"\n<b>╰ </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                    msg += f"\n<b> Elapsed: </b>{get_readable_time(time() - download.message.date.timestamp())}"
+                    msg += f"\n<b> </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
             else:
                 if config_dict['EMOJI_THEME']:
                     msg += f"\n<b>├⛓️ Engine :</b> {download.eng()}"
                     msg += f"\n<b>╰📐 Size: </b>{download.size()}"
                 else:
-                    msg += f"\n<b>├ Engine :</b> {download.eng()}"
-                    msg += f"\n<b>╰ Size: </b>{download.size()}"
+                    msg += f"\n<b>Engine :</b> {download.eng()}"
+                    msg += f"\n<b>Size: </b>{download.size()}"
             msg += f"\n<b>_________________________________</b>"
             msg += "\n\n"
             if index == STATUS_LIMIT:
@@ -354,7 +354,7 @@ def get_readable_message():
         else:
             bmsg = f"<b>CPU:</b> {cpu_percent()}% | <b>FREE:</b> {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
             bmsg += f"\n<b>RAM:</b> {virtual_memory().percent}% | <b>UPTIME:</b> {get_readable_time(time() - botStartTime)}"
-            bmsg += f"\n<b>🔻 DL:</b> {get_readable_file_size(dl_speed)}/s | <b>🔺 UL:</b> {get_readable_file_size(up_speed)}/s"
+            bmsg += f"\n<b> DL:</b> {get_readable_file_size(dl_speed)}/s | <b> UL:</b> {get_readable_file_size(up_speed)}/s"
         
         buttons = ButtonMaker()
         buttons.sbutton("Refresh", "status refresh")
@@ -692,7 +692,7 @@ def bot_sys_stats():
         if stats.status() == MirrorStatus.STATUS_SPLITTING:
             num_split += 1
     return f"""
-Made with ❤️ by {config_dict['CREDIT_NAME']}
+ok {config_dict['CREDIT_NAME']}
 
 Tasks: {tasks}
 
